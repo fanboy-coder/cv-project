@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import Month from "./Month";
 import Year from "./Year";
 
-function Entry() {
+function Entry({onClick}) {
 	const [startMonth, setStartMonth] = useState("January");
 	const [startYear, setStartYear] = useState(2000);
 	const [endMonth, setEndMonth] = useState("December");
@@ -77,7 +77,7 @@ function Entry() {
 			) : (
 				<>
 					<button className="edit" onClick={updateState}>Edit</button>
-					<button className="delete" onClick={hide}>Delete</button>
+					<button className="delete" onClick={onClick}>Delete</button>
 					<div className="date-box">
 						<p className="date">{startMonth}</p>
 						<p className="date">{startYear}</p>
