@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaPlusSquare } from "react-icons/fa";
 import Entry from "./Entry";
 
 function Experience () {
@@ -23,7 +24,7 @@ function Experience () {
 		{components.map((entry) => (
 			<Entry key={entry.id} entry={entry} onClick={() => handleRemoveChild(entry.id)}/>
 		))}
-		<button onClick={addEntry}>Add entry</button>
+		<FaPlusSquare onClick={addEntry}/>
 	</div>
 	) 
 }

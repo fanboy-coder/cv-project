@@ -4,13 +4,19 @@
 }
 
 body {
-	background-color: black;
-	color: white;
+	background-color: white;
+	color: black;
 	display: flex;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	display: grid;
 }
 
-.info-box, .entry-box, .experience-box {
-	border: 1px solid white;
+.general-box, .entry-box, .experience-box {
+	border: 1px solid black;
 	border-radius: 5px;
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	padding: 1%;
 }
+
+

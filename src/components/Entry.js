@@ -1,4 +1,5 @@
 import { React, useState } from "react";
+import { FaTrash, FaEdit, FaCheckCircle } from "react-icons/fa";
 import Month from "./Month";
 import Year from "./Year";
 
@@ -11,11 +12,6 @@ function Entry({onClick}) {
 	const [role, setRole] = useState("Law student");
 	const [description, setDescription] = useState([]);
 	const [form, setForm] = useState(false);
-	const [visibility, setVisibility] = useState(true);
-
-	let hide = () => {
-		setVisibility(false);
-	}
 
 	let updateState = () => {
 		if(!form) {
@@ -54,11 +50,11 @@ function Entry({onClick}) {
 	}
 
 	return (
-		<div className="info-box">
+		<div className="general-box">
 			{form ? (
 				<>
-					<button className="send" onClick={updateState}>Update</button>
-					<button className="delete" onClick={hide}>Delete</button>
+					<FaTrash className="delete" onClick={onClick}/>
+					<FaCheckCircle  className="send" onClick={updateState}/>
 					<div className="date-box">
 						<Month onChange={handleStartMonthChange}/>
 						<Year onChange={handleStartYearChange} />
@@ -76,8 +72,8 @@ function Entry({onClick}) {
 				</>
 			) : (
 				<>
-					<button className="edit" onClick={updateState}>Edit</button>
-					<button className="delete" onClick={onClick}>Delete</button>
+					<FaEdit  className="send" onClick={updateState}/>
+					<FaTrash className="delete" onClick={onClick}/>
 					<div className="date-box">
 						<p className="date">{startMonth}</p>
 						<p className="date">{startYear}</p>
