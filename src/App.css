@@ -6,17 +6,85 @@
 body {
 	background-color: white;
 	color: black;
-	display: flex;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	display: grid;
 }
 
-.general-box, .entry-box, .experience-box {
-	border: 1px solid black;
+.app {
+	display: grid;
+	justify-content: center;
+	gap: 5%;
+}
+
+.general-box, .experience-box {
+	border: 4px solid black;
 	border-radius: 5px;
 	display: grid;
-	grid-template-columns: 4fr 1fr;
-	padding: 1%;
+	padding: 2%;
+	width: 60vw;
+	box-shadow: 5px 5px;
 }
 
+.general-box, .entry-box {
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+}
 
+.general-info-box {
+	display: grid;
+	gap: 5px;
+}
+
+.info-box {
+	display: grid;
+	gap: 10px;
+	grid-auto-flow: row;
+	grid-template-rows: repeat(4,1fr);
+}
+
+.edit-box {
+	display: grid;
+	justify-content: end;
+	grid-column: 2;
+}
+
+.experience-box {
+	display: grid;
+	grid-template-rows: 1fr 0.1fr;
+}
+
+.add-box {
+	display:grid;
+	justify-content: center;
+}
+
+.date-box {
+	grid-row: 1;
+	display: flex;
+}
+
+.organization-box {
+	grid-row: 2;
+	grid-column: 1;
+	display: flex;
+}
+
+.role-box {
+	grid-row: 3;
+	grid-column: 1;
+	display: flex;
+}
+
+.description-box {
+	grid-row: 4;
+	grid-column: 1;
+	display: flex;
+}
+
+.btn, .add-btn {
+	fill:rgb(192, 190, 190);
+	transition: 0.3s;
+}
+
+.btn:hover, .add-btn:hover {
+	fill:black;
+}

@@ -24,7 +24,9 @@ function Experience () {
 		{components.map((entry) => (
 			<Entry key={entry.id} entry={entry} onClick={() => handleRemoveChild(entry.id)}/>
 		))}
-		<FaPlusSquare onClick={addEntry}/>
+		<div className="add-box">
+			<FaPlusSquare className="add-btn" onClick={addEntry}/>
+		</div>
 	</div>
 	) 
 }

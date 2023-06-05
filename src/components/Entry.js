@@ -3,7 +3,7 @@ import { FaTrash, FaEdit, FaCheckCircle } from "react-icons/fa";
 import Month from "./Month";
 import Year from "./Year";
 
-function Entry({onClick}) {
+function Entry({ onClick }) {
 	const [startMonth, setStartMonth] = useState("January");
 	const [startYear, setStartYear] = useState(2000);
 	const [endMonth, setEndMonth] = useState("December");
@@ -14,7 +14,7 @@ function Entry({onClick}) {
 	const [form, setForm] = useState(false);
 
 	let updateState = () => {
-		if(!form) {
+		if (!form) {
 			setForm(true);
 		} else {
 			setForm(false);
@@ -50,43 +50,55 @@ function Entry({onClick}) {
 	}
 
 	return (
-		<div className="general-box">
+		<div className="entry-box">
 			{form ? (
 				<>
-					<FaTrash className="delete" onClick={onClick}/>
-					<FaCheckCircle  className="send" onClick={updateState}/>
+				<div className="info-box">
 					<div className="date-box">
-						<Month onChange={handleStartMonthChange}/>
+						<Month onChange={handleStartMonthChange} />
 						<Year onChange={handleStartYearChange} />
-						<p> to </p>
-						<Month onChange={handleEndMonthChange}/>
-						<Year onChange={handleEndYearChange}/>
+						<p>&nbsp;to&nbsp;</p>
+						<Month onChange={handleEndMonthChange} />
+						<Year onChange={handleEndYearChange} />
 					</div>
-					<div>
-						<form className="form">
-							<input type="text" value={organization} onChange={handleOrganizationChange}></input>
-							<input type="text" value={role} onChange={handleRoleChange}></input>
-							<input type="text" value={description} onChange={handleDescriptionChange}></input>
-						</form>
+					<div className="details-box">
+						<label htmlFor="email">Organization: </label>
+						<input type="text" value={organization} onChange={handleOrganizationChange}></input>
+						<label htmlFor="email">Role: </label>
+						<input type="text" value={role} onChange={handleRoleChange}></input>
+					</div>
+					<div className="description-box">
+						<input type="text" value={description} onChange={handleDescriptionChange}></input>
+					</div>
+					<div className="edit-box">
+						<FaTrash className="btn" onClick={onClick} />
+						<FaCheckCircle className="btn" onClick={updateState} />
+					</div>
 					</div>
 				</>
 			) : (
 				<>
-					<FaEdit  className="send" onClick={updateState}/>
-					<FaTrash className="delete" onClick={onClick}/>
-					<div className="date-box">
-						<p className="date">{startMonth}</p>
-						<p className="date">{startYear}</p>
-						<p> to </p>
-						<p className="date">{endMonth}</p>
-						<p className="date">{endYear}</p>
-					</div>
-					<div>
-						<h4 className="organization">{organization}</h4>
+					<div className="info-box">
+						<div className="date-box">
+							<p className="date">{startMonth}&nbsp;</p>
+							<p className="date">{startYear}</p>
+							<p>&nbsp;to&nbsp;</p>
+							<p className="date">{endMonth}&nbsp;</p>
+							<p className="date">{endYear}</p>
+						</div>
+						<div className="organization-box">
+							<h4 className="organization">{organization}</h4>
+						</div>
+						<div className="role-box">
 						<h5 className="role">{role}</h5>
+						</div>
+						<div className="description-box">
+							<p className="description">{description}</p>
+						</div>
 					</div>
-					<div>
-						<p className="description">{description}</p>
+					<div className="edit-box">
+						<FaEdit className="btn" onClick={updateState} />
+						<FaTrash className="btn" onClick={onClick} />
 					</div>
 				</>
 			)}
