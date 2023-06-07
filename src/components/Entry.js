@@ -12,8 +12,10 @@ function Entry({ onClick }) {
 	const [role, setRole] = useState("Law student");
 	const [description, setDescription] = useState([]);
 	const [form, setForm] = useState(false);
+	const [warning, setWarning] = useState("");
 
 	let updateState = () => {
+		handleWarning();
 		if (!form) {
 			setForm(true);
 		} else {
@@ -49,31 +51,62 @@ function Entry({ onClick }) {
 		setDescription(event.target.value)
 	}
 
+	let handleWarning = () => {
+		let monthsOfYear = {
+			January: 1,
+			February: 2,
+			March: 3,
+			April: 4,
+			May: 5,
+			June: 6,
+			July: 7,
+			August: 8,
+			September: 9,
+			October: 10,
+			November: 11,
+			December: 12
+		  };
+
+		let startMonthValue = monthsOfYear[startMonth];
+		let endMonthValue = monthsOfYear[endMonth];
+
+		if(endYear > startYear) {
+			setWarning("Invalid date")
+		} else if (endYear < startYear || endYear === startYear) {
+			if (startMonthValue > endMonthValue) {
+				setWarning("Invalid date")
+			}
+		};
+	};
+
 	return (
 		<div className="entry-box">
 			{form ? (
 				<>
-				<div className="info-box">
-					<div className="date-box">
-						<Month onChange={handleStartMonthChange} />
-						<Year onChange={handleStartYearChange} />
-						<p>&nbsp;to&nbsp;</p>
-						<Month onChange={handleEndMonthChange} />
-						<Year onChange={handleEndYearChange} />
-					</div>
-					<div className="details-box">
-						<label htmlFor="email">Organization: </label>
-						<input type="text" value={organization} onChange={handleOrganizationChange}></input>
-						<label htmlFor="email">Role: </label>
-						<input type="text" value={role} onChange={handleRoleChange}></input>
-					</div>
-					<div className="description-box">
-						<input type="text" value={description} onChange={handleDescriptionChange}></input>
+					<div className="info-box">
+						<div className="date-box">
+							<Month onChange={handleStartMonthChange} />
+							<Year onChange={handleStartYearChange} />
+							<p>&nbsp;to&nbsp;</p>
+							<Month onChange={handleEndMonthChange} />
+							<Year onChange={handleEndYearChange} />
+							<p id="warning">{warning}</p>
+						</div>
+						<div className="organization-box">
+							<label>Organization:</label>
+							<input type="text" value={organization} onChange={handleOrganizationChange}></input>
+						</div>
+						<div className="role-box">
+							<label>Role: </label>
+							<input type="text" value={role} onChange={handleRoleChange}></input>
+						</div>
+						<div className="description-box">
+							<input type="text" value={description} onChange={handleDescriptionChange}></input>
+						</div>
 					</div>
 					<div className="edit-box">
 						<FaTrash className="btn" onClick={onClick} />
 						<FaCheckCircle className="btn" onClick={updateState} />
-					</div>
 					</div>
 				</>
 			) : (
@@ -90,21 +123,20 @@ function Entry({ onClick }) {
 							<h4 className="organization">{organization}</h4>
 						</div>
 						<div className="role-box">
-						<h5 className="role">{role}</h5>
+							<h5 className="role">{role}</h5>
 						</div>
 						<div className="description-box">
 							<p className="description">{description}</p>
 						</div>
 					</div>
 					<div className="edit-box">
-						<FaEdit className="btn" onClick={updateState} />
 						<FaTrash className="btn" onClick={onClick} />
+						<FaEdit className="btn" onClick={updateState} />
 					</div>
 				</>
 			)}
 		</div>
 	)
-
 }
 
 

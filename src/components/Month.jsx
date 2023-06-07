@@ -3,7 +3,6 @@ import { React } from "react";
 export default function Month({onChange}) {
 	return (
 		<select class="form-select" id="month" name="month" onChange={onChange}>
-			<option value="">month</option>
 			<option value="January">January</option>
 			<option value="February">February</option>
 			<option value="March">March</option>

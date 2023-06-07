@@ -42,7 +42,7 @@ body {
 }
 
 .edit-box {
-	display: grid;
+	display: flex;
 	justify-content: end;
 	grid-column: 2;
 }
@@ -87,4 +87,8 @@ body {
 
 .btn:hover, .add-btn:hover {
 	fill:black;
+}
+
+#warning {
+	color:red;
 }
