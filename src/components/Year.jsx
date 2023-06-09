@@ -1,8 +1,9 @@
 import { React } from "react";
 
-export default function Year({onChange}) {
+export default function Year({onChange,value}) {
 	return (
-		<select class="form-select" id="year" name="year" onChange={onChange}>
+		<select class="form-select" id="year" name="year" onChange={onChange} value={value}>
+			<option>Year</option>
 			<option value="1940">1940</option>
 			<option value="1941">1941</option>
 			<option value="1942">1942</option>

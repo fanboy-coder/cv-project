@@ -45,6 +45,7 @@ body {
 	display: flex;
 	justify-content: end;
 	grid-column: 2;
+	gap: 10px;
 }
 
 .experience-box {

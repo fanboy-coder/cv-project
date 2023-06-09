@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { FaTrash, FaEdit, FaCheckCircle } from "react-icons/fa";
 import Month from "./Month";
 import Year from "./Year";
@@ -14,14 +14,13 @@ function Entry({ onClick }) {
 	const [form, setForm] = useState(false);
 	const [warning, setWarning] = useState("");
 
-	let updateState = () => {
-		handleWarning();
-		if (!form) {
-			setForm(true);
+	const updateState = useCallback(() => {
+		if (warning !== "") {
+			console.log("there's an error")
 		} else {
-			setForm(false);
+			setForm((prevForm) => !prevForm);
 		}
-	}
+	},[warning]);
 
 	let handleStartMonthChange = (event) => {
 		setStartMonth(event.target.value);
@@ -51,7 +50,7 @@ function Entry({ onClick }) {
 		setDescription(event.target.value)
 	}
 
-	let handleWarning = () => {
+	useEffect(() => {
 		let monthsOfYear = {
 			January: 1,
 			February: 2,
@@ -65,19 +64,26 @@ function Entry({ onClick }) {
 			October: 10,
 			November: 11,
 			December: 12
-		  };
+		};
 
 		let startMonthValue = monthsOfYear[startMonth];
 		let endMonthValue = monthsOfYear[endMonth];
 
-		if(endYear > startYear) {
-			setWarning("Invalid date")
-		} else if (endYear < startYear || endYear === startYear) {
+		if (startYear > endYear) {
+			setWarning(" Invalid date");
+		} else if (startYear < endYear || endYear === startYear) {
 			if (startMonthValue > endMonthValue) {
-				setWarning("Invalid date")
+				setWarning(" Invalid date");
+			} else {
+				setWarning("");
 			}
+		} else if (!monthsOfYear.hasOwnProperty(startMonth) || !monthsOfYear.hasOwnProperty(endMonth)) {
+			setWarning(" Invalid date");
+		}
+		else {
+			setWarning("");
 		};
-	};
+	}, [updateState, startYear, endYear, startMonth, endMonth]);
 
 	return (
 		<div className="entry-box">
@@ -85,11 +91,11 @@ function Entry({ onClick }) {
 				<>
 					<div className="info-box">
 						<div className="date-box">
-							<Month onChange={handleStartMonthChange} />
-							<Year onChange={handleStartYearChange} />
+							<Month onChange={handleStartMonthChange} value={startMonth}/>
+							<Year onChange={handleStartYearChange} value={startYear}/>
 							<p>&nbsp;to&nbsp;</p>
-							<Month onChange={handleEndMonthChange} />
-							<Year onChange={handleEndYearChange} />
+							<Month onChange={handleEndMonthChange} value={endMonth} />
+							<Year onChange={handleEndYearChange} value={endYear}/>
 							<p id="warning">{warning}</p>
 						</div>
 						<div className="organization-box">
