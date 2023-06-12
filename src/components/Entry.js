@@ -1,5 +1,7 @@
 import { React, useState, useEffect, useCallback } from "react";
-import { FaTrash, FaEdit, FaCheckCircle } from "react-icons/fa";
+import { FaTrash, FaEdit, FaCheckCircle, FaPlusSquare } from "react-icons/fa";
+import Description from "./Description";
+import AddDescription from "./AddDescription";
 import Month from "./Month";
 import Year from "./Year";
 
@@ -20,7 +22,7 @@ function Entry({ onClick }) {
 		} else {
 			setForm((prevForm) => !prevForm);
 		}
-	},[warning]);
+	}, [warning]);
 
 	let handleStartMonthChange = (event) => {
 		setStartMonth(event.target.value);
@@ -50,6 +52,18 @@ function Entry({ onClick }) {
 		setDescription(event.target.value)
 	}
 
+	let addDescription = () => {
+		const newDescription = { id: Date.now()};
+		setDescription([...description, newDescription]);
+		return(
+			<addDescription/>
+		)
+	}
+
+	let removeDescription = (id) => {
+		setDescription(prevDescription => prevDescription.filter(desc => desc.id !== id));
+	}
+
 	useEffect(() => {
 		let monthsOfYear = {
 			January: 1,
@@ -69,7 +83,11 @@ function Entry({ onClick }) {
 		let startMonthValue = monthsOfYear[startMonth];
 		let endMonthValue = monthsOfYear[endMonth];
 
-		if (startYear > endYear) {
+		if (startYear > endYear ||
+			!monthsOfYear.hasOwnProperty(startMonth) ||
+			!monthsOfYear.hasOwnProperty(endMonth) ||
+			startYear === "Years" ||
+			endYear === "Year") {
 			setWarning(" Invalid date");
 		} else if (startYear < endYear || endYear === startYear) {
 			if (startMonthValue > endMonthValue) {
@@ -77,8 +95,6 @@ function Entry({ onClick }) {
 			} else {
 				setWarning("");
 			}
-		} else if (!monthsOfYear.hasOwnProperty(startMonth) || !monthsOfYear.hasOwnProperty(endMonth)) {
-			setWarning(" Invalid date");
 		}
 		else {
 			setWarning("");
@@ -91,12 +107,12 @@ function Entry({ onClick }) {
 				<>
 					<div className="info-box">
 						<div className="date-box">
-							<Month onChange={handleStartMonthChange} value={startMonth}/>
-							<Year onChange={handleStartYearChange} value={startYear}/>
+							<Month onChange={handleStartMonthChange} value={startMonth} />
+							<Year onChange={handleStartYearChange} value={startYear} />
 							<p>&nbsp;to&nbsp;</p>
 							<Month onChange={handleEndMonthChange} value={endMonth} />
-							<Year onChange={handleEndYearChange} value={endYear}/>
-							<p id="warning">{warning}</p>
+							<Year onChange={handleEndYearChange} value={endYear} />
+							<p id="warning">&nbsp;{warning}</p>
 						</div>
 						<div className="organization-box">
 							<label>Organization:</label>
@@ -107,7 +123,13 @@ function Entry({ onClick }) {
 							<input type="text" value={role} onChange={handleRoleChange}></input>
 						</div>
 						<div className="description-box">
-							<input type="text" value={description} onChange={handleDescriptionChange}></input>
+							<AddDescription value={description} onChange={handleDescriptionChange} onRemove={removeDescription}/>
+							{description.map((entry) => (
+								<AddDescription key={entry.key} entry={entry}/>
+							))}
+							<div className="add-box">
+								<FaPlusSquare className="add-btn" onClick={addDescription}/>
+							</div>
 						</div>
 					</div>
 					<div className="edit-box">
@@ -132,7 +154,7 @@ function Entry({ onClick }) {
 							<h5 className="role">{role}</h5>
 						</div>
 						<div className="description-box">
-							<p className="description">{description}</p>
+							<Description value={description} />
 						</div>
 					</div>
 					<div className="edit-box">

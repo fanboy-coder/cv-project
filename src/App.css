@@ -10,9 +10,11 @@ body {
 }
 
 .app {
+	margin-top: 3%;
 	display: grid;
 	justify-content: center;
-	gap: 5%;
+	gap: 20%;
+	height: 10vh;
 }
 
 .general-box, .experience-box {
