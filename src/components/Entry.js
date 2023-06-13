@@ -1,7 +1,5 @@
 import { React, useState, useEffect, useCallback } from "react";
 import { FaTrash, FaEdit, FaCheckCircle, FaPlusSquare } from "react-icons/fa";
-import Description from "./Description";
-import AddDescription from "./AddDescription";
 import Month from "./Month";
 import Year from "./Year";
 
@@ -18,7 +16,7 @@ function Entry({ onClick }) {
 
 	const updateState = useCallback(() => {
 		if (warning !== "") {
-			console.log("there's an error")
+			return
 		} else {
 			setForm((prevForm) => !prevForm);
 		}
@@ -49,19 +47,7 @@ function Entry({ onClick }) {
 	}
 
 	let handleDescriptionChange = (event) => {
-		setDescription(event.target.value)
-	}
-
-	let addDescription = () => {
-		const newDescription = { id: Date.now()};
-		setDescription([...description, newDescription]);
-		return(
-			<addDescription/>
-		)
-	}
-
-	let removeDescription = (id) => {
-		setDescription(prevDescription => prevDescription.filter(desc => desc.id !== id));
+		setDescription(event.target.value);
 	}
 
 	useEffect(() => {
@@ -123,13 +109,8 @@ function Entry({ onClick }) {
 							<input type="text" value={role} onChange={handleRoleChange}></input>
 						</div>
 						<div className="description-box">
-							<AddDescription value={description} onChange={handleDescriptionChange} onRemove={removeDescription}/>
-							{description.map((entry) => (
-								<AddDescription key={entry.key} entry={entry}/>
-							))}
-							<div className="add-box">
-								<FaPlusSquare className="add-btn" onClick={addDescription}/>
-							</div>
+						<label>Description: </label>
+						<input id="test" type="text" value={description} onChange={handleDescriptionChange}></input>
 						</div>
 					</div>
 					<div className="edit-box">
@@ -154,7 +135,7 @@ function Entry({ onClick }) {
 							<h5 className="role">{role}</h5>
 						</div>
 						<div className="description-box">
-							<Description value={description} />
+							{description}
 						</div>
 					</div>
 					<div className="edit-box">

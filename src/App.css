@@ -17,6 +17,10 @@ body {
 	height: 10vh;
 }
 
+input {
+	width:100%;
+}
+
 .general-box, .experience-box {
 	border: 4px solid black;
 	border-radius: 5px;
@@ -34,6 +38,10 @@ body {
 .general-info-box {
 	display: grid;
 	gap: 5px;
+}
+
+.entry-box {
+	padding: 1%;
 }
 
 .info-box {
@@ -58,6 +66,7 @@ body {
 .add-box {
 	display:grid;
 	justify-content: center;
+	padding-top: 1.5%;
 }
 
 .date-box {
